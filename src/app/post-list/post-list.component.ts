@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { PostServiceService } from '../post-service.service';
 
 @Component({
@@ -7,15 +8,26 @@ import { PostServiceService } from '../post-service.service';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
+  postsItem:any;
+  constructor(private posts:PostServiceService
+     )  {
+      this.newMethod();
+  }
 
-  public posts = [];
-
-  constructor(private _postService: PostServiceService) { }
+  private newMethod() {
+    
+  }
 
   ngOnInit() {
-    this._postService.getPosts()
-      .subscribe(data => this.posts = data)
-
+    this.posts.getPosts().subscribe(
+      val => {
+        this.postsItem = val        
+      },
+      err => {
+        console.log(err);
+        
+      }
+    )
   }
 
 }
